@@ -14,7 +14,7 @@ ou escrito diretamente na tela.
 
 $ch = curl_init();
 curl_setopt_array($ch, [
-	CURLOPT_URL => 'http://api.local/api/get_all_people/',
+	CURLOPT_URL => 'http://api.local/api/get_people/?max=1',
 	CURLOPT_RETURNTRANSFER => true,
 ]);
 $response = curl_exec($ch);
