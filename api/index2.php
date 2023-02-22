@@ -1,26 +1,25 @@
 <?php
 /*
-Para transferirmos dados pela internent,
-podemos utilizar a biblioteca curl, que também está presente no php.
+CURLOPT_CUSTOM define qual é o método HTTP do request.
 
-1. O curl_init inicia a sessão de transferência de dados.
-2. O curl_setopt_array configura várias opções de transferência de dados de uma só vez:
-* CURLOPT_URL define a url para onde os dados serão enviados
-* CURLOPT_RETURNTRANSFER define se o resultado deve ser exibido como uma string
-ou escrito diretamente na tela.
-3. curl_exec executa a requisição HTTP.
-4. curl_close encerra uma sessão anteriormente iniciada pelo curl_init.
+CURLOPT_POSTFIELDS define os dados que serão enviados na requisição.
+Os dados podem ser enviados no formato de array associativo ou JSON.
+
+CURLOPT_HTTPHEADER especifica os cabeçalhos personalizados que serão enviados na requisição.
+Os cabeçalhos são enviados no formato de array: ['Content-Type: application/json']
 */
 
 $ch = curl_init();
 curl_setopt_array($ch, [
-	CURLOPT_URL => 'http://api.local/api/get_people/?max=1',
+	CURLOPT_URL => 'http://api.local/api/add_new_client_json/',
 	CURLOPT_RETURNTRANSFER => true,
+	CURLOPT_CUSTOMREQUEST => 'POST',
+	CURLOPT_POSTFIELDS => '{"name": "José"}',
+	CURLOPT_HTTPHEADER => [
+		'Content-Type: application/json',
+	],
 ]);
 $response = curl_exec($ch);
 curl_close($ch);
 
-$response = json_decode($response, true);
-echo "<pre>";
-print_r($response);
-echo "</pre>";
+echo $response;
