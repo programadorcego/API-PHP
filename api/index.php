@@ -11,10 +11,13 @@ Os cabeçalhos são enviados no formato de array: ['Content-Type: application/js
 
 $ch = curl_init();
 curl_setopt_array($ch, [
-	CURLOPT_URL => 'http://api.local/api/add_new_client_post/',
+	CURLOPT_URL => 'http://api.local/api/edit_client/',
 	CURLOPT_RETURNTRANSFER => true,
-	CURLOPT_CUSTOMREQUEST => 'POST',
-	CURLOPT_POSTFIELDS => ['name' => 'Willian'],
+	CURLOPT_CUSTOMREQUEST => 'PUT',
+	CURLOPT_POSTFIELDS => '{"id": 5, "name": "Isabela Edit"}',
+	CURLOPT_HTTPHEADER => [
+		'Content-Type: application/json',
+	],
 ]);
 $response = curl_exec($ch);
 curl_close($ch);
