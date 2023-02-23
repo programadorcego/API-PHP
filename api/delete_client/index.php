@@ -1,7 +1,7 @@
 <?php
 header("Content-Type: application/json");
 
-if($_SERVER['REQUEST_METHOD'] != 'PUT')
+if($_SERVER['REQUEST_METHOD'] != 'DELETE')
 {
 	$response['status'] = 'error';
 	$response['message'] = 'Invalid HTTP Request Method!';
@@ -12,39 +12,38 @@ if($_SERVER['REQUEST_METHOD'] != 'PUT')
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-if(!isset($data['id']) || !isset($data['name']))
+if(!isset($data['id']))
 {
 	$response['status'] = 'error';
-	$response['message'] = 'Client ID or client name is not defined!';
+	$response['message'] = 'Client ID is not defined!';
 	$response['time_response'] = time();
 	echo json_encode($response, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
 	exit;
 }
 
-$new_name = $data['name'];
 $id = $data['id'];
 $tmp = explode(PHP_EOL, file_get_contents(__DIR__ . '/../data/data.txt'));
 $index = 1;
 
-$file = fopen(__DIR__ . "/../data/data.txt", "w");
+$file = fopen(__DIR__ . '/../data/data.txt', 'w');
 
 foreach($tmp as $client)
 {
-	if($index == $id)
+	if($id == $index)
 	{
-		fputs($file, PHP_EOL . $new_name);
+		$index++;
+		continue;
 	}
 	else
 	{
-		fputs($file, PHP_EOL . $client);
+		fputs($file, $client . PHP_EOL);
+		$index++;
 	}
-	
-	$index++;
 }
 
 fclose($file);
 
 $response['status'] = 'success';
-$response['message'] = "Client updated successfully! The new client name is $new_name.";
+$response['message'] = 'Client deleted successfully!';
 $response['time_response'] = time();
 echo json_encode($response, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
