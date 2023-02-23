@@ -1,22 +1,27 @@
 <?php
 /*
-CURLOPT_CUSTOM define qual é o método HTTP do request.
+Uma das características de uma REST API é que ela não deve salvar informações do lado do cliente.
+Toda vez que o cliente fizer uma requisição a uma API,
+essa requisição deve ser tratada como se fosse a primeira requisição a ser feita.
 
-CURLOPT_POSTFIELDS define os dados que serão enviados na requisição.
-Os dados podem ser enviados no formato de array associativo ou JSON.
+Por isso, a forma de se autenticar um usuário é passando as credenciais pelo header.
 
-CURLOPT_HTTPHEADER especifica os cabeçalhos personalizados que serão enviados na requisição.
-Os cabeçalhos são enviados no formato de array: ['Content-Type: application/json']
+o header "Authorization: Basic" é um método de autenticação HTTP
+usado para fornecer as credenciais do usuário em uma requisição HTTP.
+
+As credenciais são codificadas em base64 no padrão usuario:senha
+Essas informações podem ser recuperadas através da super global $_SERVER:
+
+$_SERVER['PHP_AUTH_USER'] recupera o nome de usuário
+$_SERVER['PHP_AUTH_PW'] recupera a senha
 */
 
 $ch = curl_init();
 curl_setopt_array($ch, [
-	CURLOPT_URL => 'http://api.local/api/delete_client/',
+	CURLOPT_URL => 'http://api.local/api/basic_auth/',
 	CURLOPT_RETURNTRANSFER => true,
-	CURLOPT_CUSTOMREQUEST => 'DELETE',
-	CURLOPT_POSTFIELDS => '{"id": 5}',
 	CURLOPT_HTTPHEADER => [
-		'Content-Type: application/json',
+		'Authorization: Basic ' . base64_encode("willian:minhasenha"),
 	],
 ]);
 $response = curl_exec($ch);
