@@ -1,17 +1,21 @@
 <?php
+session_start();
 require __DIR__ . "/functions.php";
 
-$secret = "50d562ac9b624742b2b5fc30cf5d078209783f0840986499a206ed9e4e08dd85";
+if(!isset($_SESSION['jwt']))
+{
+	die("JWT is missing!");
+}
 
-$header = [
-	"alg" => "HS256",
-	"type" => "JWT",
-];
+$ch = curl_init();
+curl_setopt_array($ch, [
+	CURLOPT_URL => 'http://api.local/api/jwt_auth/',
+	CURLOPT_RETURNTRANSFER => true,
+	CURLOPT_HTTPHEADER => [
+		'Authorization: Bearer ' . $_SESSION['jwt'],
+	],
+]);
+$response = curl_exec($ch);
+curl_close($ch);
 
-$payload = [
-	"sub" => 1,
-	"username" => "willian",
-	"role" => "admin"
-];
-
-echo jwt($header, $payload, $secret);
+echo $response;
