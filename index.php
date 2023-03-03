@@ -1,6 +1,5 @@
 <?php
 session_start();
-require __DIR__ . "/functions.php";
 
 if(!isset($_SESSION['jwt']))
 {

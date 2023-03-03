@@ -1,7 +1,10 @@
 <?php
 header("Content-Type: application/json");
 
-require __DIR__ . "/..//functions.php";
+require __DIR__ . "/..//vendor/autoload.php";
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 if($_SERVER['REQUEST_METHOD'] != "POST")
 {
@@ -38,6 +41,6 @@ $payload = [
 
 $response['status'] = 'success';
 $response['message'] = 'User authenticated successfully!';
-$response['jwt'] = jwt($payload, $secret);
+$response['jwt'] = JWT::encode($payload, $secret, 'HS256');
 $response['time_response'] = time();
 echo json_encode($response, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
