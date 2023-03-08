@@ -1,0 +1,16 @@
+{
+	"name": "framework/mvc",
+	"autoload": {
+		"files": [
+			"app/helpers/functions.php"
+		],
+		
+		"psr-4": {
+			"App\\": "app/"
+		}
+	},
+	"require": {
+		"vlucas/phpdotenv": "^5.5",
+		"firebase/php-jwt": "^6.4"
+	}
+}
