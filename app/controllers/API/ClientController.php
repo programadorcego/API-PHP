@@ -7,6 +7,7 @@ use App\Http\Request;
 use App\Http\Response;
 use App\Models\API\Client;
 use Exception;
+use App\Http\Validate;
 
 class ClientController extends Controller
 {
@@ -137,5 +138,46 @@ class ClientController extends Controller
 		$response['time_response'] = time();
 		
 		return (new Response(200, $response, 'application/json'))->sendResponse();
+	}
+	
+	public function add_client()
+	{
+		$data = json_decode(file_get_contents("php://input"), true);
+		
+		$rules = [
+			'nome' => 'required',
+			'email' => 'required|email|unique:'.Client::class,
+			'sexo' => 'required',
+			'telefone' => 'required|regex:[0-9]{10}',
+			'morada' => 'required',
+			'cidade' => 'required',
+			'cliente_ativo' => 'required|regex:[01]{1}',
+			'data_nascimento' => 'required|regex:[0-9]{4}\-[0-9]{2}\-[0-9]{2}',
+		];
+		
+		$validate = Validate::make($data, $rules);
+		if(!$validate->validate())
+		{
+			$response['status'] = 'error';
+			$response['errors'] = $validate->getErrors();
+			$response['time_response'] = time();
+			return (new Response(200, $response, "application/json"))->sendResponse();
+		}
+		
+		try
+		{
+			$client = (new Client())->create($data);
+			
+			$response['status'] = 'success';
+			$response['message'] = 'API running OK!';
+			$response['client'] = $client;
+		} catch(Exception $e)
+			{
+				$response['status'] = 'error';
+				$response['message'] = $e->getMessage();
+			}
+			
+			$response['time_response'] = time();
+			return (new Response(200, $response, "application/json"))->sendResponse();
 	}
 }

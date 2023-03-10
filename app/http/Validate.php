@@ -38,7 +38,7 @@ class Validate
 	
 	private static function required($field)
 	{
-		if(trim(self::$data[$field]) === "")
+		if(!isset(self::$data[$field]) || trim(self::$data[$field]) === "")
 		{
 			if(isset(self::$customErrors[$field . '.' . __FUNCTION__]))
 			{

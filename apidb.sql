@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 -- Estrutura para tabela `clientes`
 --
 
+DROP TABLE `clientes`;
 CREATE TABLE `clientes` (
   `id` int UNSIGNED NOT NULL,
   `nome` varchar(100) DEFAULT NULL,
@@ -251,6 +252,7 @@ INSERT INTO `clientes` (`id`, `nome`, `sexo`, `data_nascimento`, `email`, `telef
 -- Estrutura para tabela `users`
 --
 
+DROP TABLE `users`;
 CREATE TABLE `users` (
   `id_user` int UNSIGNED NOT NULL,
   `username` varchar(30) DEFAULT NULL,
