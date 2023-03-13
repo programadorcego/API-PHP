@@ -221,4 +221,22 @@ class ClientController extends Controller
 			$response['time_response'] = time();
 			return (new Response(200, $response, "application/json"))->sendResponse();
 	}
+	
+	public function delete_client($id)
+	{
+		try
+		{
+			$delete = (new Client())->delete($id);
+			
+			$response['status'] = 'success';
+			$response['message'] = 'API runnin OK!';
+		} catch(Exception $e)
+			{
+				$response['status'] = 'error';
+				$response['message'] = $e->getMessage();
+			}
+			
+			$response['time_response'] = time();
+			return (new Response(200, $response, "application/json"))->sendResponse();
+	}
 }

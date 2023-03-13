@@ -7,3 +7,4 @@ $route->get('api/get_clients_by_male', '\\App\\Controllers\\API\\ClientControlle
 $route->get('api/get_clients_by_female', '\\App\\Controllers\\API\\ClientController@get_clients_by_female');
 $route->post('api/add_client', '\\App\\Controllers\\API\\ClientController@add_client');
 $route->put('api/edit_client/{id}', '\\App\\Controllers\\API\\ClientController@edit_client');
+$route->delete('api/delete_client/{id}', '\\App\\Controllers\\API\\ClientController@delete_client');

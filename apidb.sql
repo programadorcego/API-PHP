@@ -254,19 +254,19 @@ INSERT INTO `clientes` (`id`, `nome`, `sexo`, `data_nascimento`, `email`, `telef
 
 DROP TABLE `users`;
 CREATE TABLE `users` (
-  `id_user` int UNSIGNED NOT NULL,
+  `id` int UNSIGNED NOT NULL,
   `username` varchar(30) DEFAULT NULL,
-  `passwrd` varchar(200) DEFAULT NULL
+  `password` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `users`
 --
 
-INSERT INTO `users` (`id_user`, `username`, `passwrd`) VALUES
-(1, 'cliente1', '$2y$10$KUd6ktpI1znG5IrYKjC9oOiTmz46ZHFTscu3hn5fA/RhWkkD.fRy2'),
-(2, 'cliente2', '$2y$10$mM6IndQ/Jrm29irHdf9Z1etYV0.7JxQGk9ODEMyxdKoZd7ua/cZXC'),
-(3, 'cliente3', '$2y$10$6b/awvfguUSKtXlCID72.u4LfGCsOf9NQ5g4CEml7qbdHK6kjcK0u');
+INSERT INTO `users` (`id`, `username`, `password`) VALUES
+(1, 'cliente1', '$2y$10$iMheisOizNgnAxi3SUw.Fub78pkey/VRz8Llt01W65j6/Fz2qTFtW'),
+(2, 'cliente2', '$2y$10$xGXIcuB2jFEUCyErZJ/Q9.95orEsk3AZc/bgqjHHtgzrjvJJCs/pG'),
+(3, 'cliente3', '$2y$10$tOZTUbK4fc2k3qiz/Ph4SOjq4U0yO6pWhFyg.XcXezIaAmDi8xIRi');
 
 --
 -- Índices para tabelas despejadas
@@ -282,7 +282,7 @@ ALTER TABLE `clientes`
 -- Índices de tabela `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id_user`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT para tabelas despejadas
@@ -298,7 +298,7 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
