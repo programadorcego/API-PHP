@@ -8,3 +8,5 @@ $route->get('api/get_clients_by_female', '\\App\\Controllers\\API\\ClientControl
 $route->post('api/add_client', '\\App\\Controllers\\API\\ClientController@add_client');
 $route->put('api/edit_client/{id}', '\\App\\Controllers\\API\\ClientController@edit_client');
 $route->delete('api/delete_client/{id}', '\\App\\Controllers\\API\\ClientController@delete_client');
+
+$route->post('api/login', '\\App\\Controllers\\API\\AuthController@login');
