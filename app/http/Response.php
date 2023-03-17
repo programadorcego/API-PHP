@@ -44,12 +44,15 @@ class Response
 		switch($this->contentType)
 		{
 			case "application/json" :
-				echo json_encode($this->content, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
+				$this->content = json_encode($this->content, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
 			break;
 			
 			default :
-				echo $this->content;
+				$this->content = $this->content;
 			break;
 		}
+		
+		echo $this->content;
+		return $this->content;
 	}
 }
